@@ -1,4 +1,12 @@
-import { Component, OnInit, VERSION, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  VERSION,
+  ViewChild,
+} from '@angular/core';
+import { ChildComponentComponent } from './child-component/child-component.component';
 import { ParentComponentComponent } from './parent-component/parent-component.component';
 
 @Component({
@@ -6,15 +14,29 @@ import { ParentComponentComponent } from './parent-component/parent-component.co
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges, OnDestroy {
   name = 'Angular ' + VERSION.major;
 
   @ViewChild(ParentComponentComponent)
   parentComponentComponent: ParentComponentComponent;
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('On Init Invoked');
+  }
 
   getParentAge() {
     console.log(this.parentComponentComponent.getParentAge());
+  }
+
+  selectRadio(event: any) {
+    console.log(event.target);
+  }
+
+  ngOnChanges() {
+    console.log('On Change Invoked');
+  }
+
+  ngOnDestroy() {
+    console.log('On Destory Invoked');
   }
 }
